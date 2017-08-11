@@ -1,0 +1,148 @@
+---
+title: "DE_exp_plot"
+author: "zhu"
+date: "2017年6月24日"
+output: html_document
+---
+
+
+```{r}
+setwd("~/workspace/4.sin3a/4.microarray/2.nor_data_analysis")
+mm9 = read.table("mm9.RefSeq.bed",header = F,sep = "\t")
+ref = read.table("refseq_fc.tab",header = F,sep = "\t")
+
+temp = merge(mm9,ref,by.x = 4,by.y = 1)
+
+temp <- temp[which(!duplicated(temp$V4)),c(2,3,4,1,7,6)]
+
+res <- temp[order(temp$V2.y,decreasing = T),]
+
+write.table(res,file = "mm9.fc.bed",quote = F,sep = "\t",row.names = F,col.names = F)
+
+```
+
+
+```{r difference expression genes point plot}
+setwd("~/workspace/4.sin3a/4.microarray/2.nor_data_analysis")
+exp8 <- read.table("gene_matrix8.tab",header = T,sep = "\t",row.names = 1)
+exp_8 <- read.table("gene_matrix-8.tab",header = T,sep = "\t",row.names = 1)
+
+up <- read.table("up.list")
+down <- read.table("down.list")
+#library(ggplot2)
+
+#g <- ggplot(exp_data) + geom_point(aes(x=Scramble,y=shSin3A))+ xlim(0,15) + ylim(0,15) + theme_bw()
+#exp0[which(exp0$shSin3A<=6 & exp0$Scramble<=6),"Regulate"] = "NOT"
+#exp0$Reg8 ="NOT"
+#exp0[which(rownames(exp0) %in% up$V1),"Reg8"] = "UP"
+#exp0[which(rownames(exp0) %in% down$V1),"Reg8"] = "DOWN"
+
+
+exp_8$Regulate = "NOT"
+temp <- rbind(exp8,exp_8[which(!(rownames(exp_8) %in% rownames(exp8))),])
+
+temp <- temp[c(which(temp$Regulate == "NOT"),which(temp$Regulate == "UP"),which(temp$Regulate == "DOWN")),]
+temp$Regulate <- factor(temp$Regulate,levels = c("NOT","UP","DOWN"),ordered = T)
+
+interesting <- factor(c("Sin3a","Lefty1","Lefty2","Otx2","Gli1"))
+sig_temp<- temp[which(rownames(temp) %in% interesting),]
+
+
+g=(ggplot(temp) + geom_point(aes(x=Scramble,y=shSin3A,color= Regulate,alpha=Regulate))  
+      + scale_x_continuous("Log2(Scramble)",limits = c(0,15),expand=c(0,0)) + scale_y_continuous("Log2(shSin3A)",limits = c(0,15),expand=c(0,0)) 
+      + theme_bw()  + scale_color_manual(values = c("gray90","red ","darkgreen"))+coord_fixed(ratio = 1) + scale_alpha_manual(values = c(1,1,1))
+   + geom_point(data = sig_temp,aes(x=Scramble,y=shSin3A),color = "dodgerblue")
+   + geom_text(data = sig_temp,aes(x=Scramble,y=shSin3A),hjust=-1,vjust=0,label=rownames(sig_temp),check_overlap = F)#nudge_y=0,nudge_x=2,
+   )
+print(g)
+ggsave("exp_point.pdf",g,width = 7.20,height = 7.20)
+
+```
+
+```{r violin}
+library(ggplot2)
+library(reshape2)
+
+temp <- exp8[,c(1,2)]
+
+exp_melt <- melt(temp)
+
+
+print(ggplot(exp_melt) + geom_violin(aes(x=variable,y=value)))
+```
+
+
+
+
+```{r annotation peaks enrichment region bar plot} 
+setwd("/home/qszhu/workspace/4.sin3a/3.findPeaks/2.annotatePeaks")
+enrich <- read.table("annoPeaks_sin3a.txt",header = T,row.names = 1,sep = "\t")
+enrich$Term = rownames(enrich)
+colnames(enrich) <- c("peaks","size","Enrichment","Term")
+
+select = c("CpG-Island","Satellite","LTR","5UTR","Promoter","Intergenic","Intron","Exon","SINE","LINE","3UTR")
+enrich <- enrich[select,]
+
+g2 = (ggplot(enrich) 
+  +	geom_bar(aes(x = reorder(Term,Enrichment,FUN=function(x) -x),weight=Enrichment),  #将term按pvalue排序；bar的高度为term*weight / x = reorder(Term,Enrichment)
+	fill="black",  							#bar填充的颜色
+	position = position_stack(reverse = T),	    		#未知
+	width = 0.9,										#bar的宽度
+	show.legend = F)									#不显示legend
+  #+ coord_flip() 										#倒置坐标轴
+	+ xlab("") + ylab("Log2 Enrichment vs Expected") 					#x,y坐标轴标题
+	+ theme_bw() 										#空白主题
+	+ labs(title = "Sin3A Localization Annotation")   #图标题
+	+ theme(panel.grid.major =element_blank(), 						
+              panel.grid.minor = element_blank(),
+              panel.background = element_blank(),						#空白背景
+              plot.title = element_text(hjust = 0.5),					#调整标题位置
+              axis.text.y = element_text(colour = "black",size = 10),	#y轴文字颜色大小
+              plot.margin = margin(10,10,5,5),							#图与边界的空白
+	        axis.line=element_line(),
+	        panel.border = element_blank(),
+	        axis.text.x = element_text(angle = 45,hjust = 1,size = 10)
+              ) 
+  + scale_y_continuous(limits = c(-5,10),expand=c(0,0))				#y轴范围；与x轴的留白为0
+      #+ guides(fill = F) 
+  +geom_hline(yintercept=0)
+    )
+print(g2)
+ggsave("sin3a_localization_enrich.pdf",g2,width = 5.60,height = 4.80)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

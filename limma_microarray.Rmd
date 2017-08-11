@@ -1,0 +1,715 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/home/qszhu/workspace/4.sin3a/4.microarray/0.rawdata")
+knitr::opts_chunk$set(root.dir = "/home/qszhu/workspace/4.sin3a/4.microarray/0.rawdata")
+```
+
+```{r}
+library(affy)
+library(gcrma)
+setwd("/home/qszhu/workspace/4.sin3a/4.microarray/0.rawdata")
+Data <- ReadAffy("00.shSin3A_ctrl.CEL","00.shSin3A_ctrl_D2.CEL","00.shSin3A_ctrl_D4.CEL","01.shSin3A_kd.CEL","01.shSin3A_kd_D2.CEL","01.shSin3A_kd_D4.CEL")
+Data <- ReadAffy(verbose=TRUE, celfile.path="/home/qszhu/workspace/4.sin3a/4.microarray/0.rawdata")
+eset <- rma(Data)
+
+eset2 <- mas5(Data)         
+
+eset3 <- gcrma(Data)
+
+exp1 <- exprs(eset)
+exp2 <- log2(exprs(eset2))  #company used
+exp3 <- exprs(eset3)
+
+boxplot(exp1,las=3)
+boxplot(exp2,las=3)
+boxplot(exp3,las=3)
+
+save.image("rawdata.cel.RData")
+load("/home/qszhu/R/Sin3a/rawdata.cel.RData")
+
+write.table(file = "/home/qszhu/workspace/4.sin3a/4.microarray/0.rawdata/nor_rma.tab",x = exp1,quote = F,sep = "\t")
+```
+
+```{r}
+#library(ggplot2)
+#library(reshape2)
+
+temp <- data.frame(exp3[,c(1,4)])
+colnames(temp) = c("ctrl","kd")
+#exp_melt <- melt(exp2)
+
+
+print(ggplot(exp_melt) + geom_violin(aes(x=Var2,y=value)))
+
+print(ggplot(temp) + geom_point(aes(x=ctrl,y=kd)))
+```
+
+
+```{r affy}
+#R CMD INSTALL mogene10stmmentrezgcdf_18.0.0.tar.gz
+#R CMD INSTALL mogene10stmmentrezg.db_18.0.0.tar.gz
+#R CMD INSTALL mogene10stmmentrezgprobe_18.0.0.tar.gz
+
+######读入数据
+library(affy)
+library(gcrma)
+library(mogene10stmmentrezgcdf)
+library(mogene10stmmentrezg.db)
+library(mogene10stmmentrezgprobe)
+library(limma)
+
+setwd("~/workspace/4.sin3a/4.microarray/0.rawdata/GSE24842")
+
+Data <- ReadAffy("031.shTet1_scr.CEL","032.shTet1_scr.CEL","033.shTet1_scr.CEL",
+                 "041.shTet1_4.CEL","042.shTet1_4.CEL","043.shTet1_4.CEL",
+                 "051.shTet1_5.CEL","052.shTet1_5.CEL","053.shTet1_5.CEL") # read CEL files into an Affybatch
+Data@cdfName<-"mogene10stmmentrezg"
+eset <- rma(Data)
+
+cdf="mogene10st_Mm_ENTREZG"
+
+
+expression<-exprs(eset)
+
+#Step1 – design matrix
+gm.design <- cbind(shScr=c(1,1,1,0,0,0),shSin3A=c(0,0,0,1,1,1))
+#Step2 – fit
+gm.fit <- lmFit(eset, gm.design)
+gm.matrix <- makeContrasts(DE=shScr-shSin3A, levels=gm.design)
+gm.fit <- contrasts.fit(gm.fit, gm.matrix)
+gm.fit <- eBayes(gm.fit)
+topTable(gm.fit, adjust="BH")
+
+write.table(topTable(gm.fit, coef=1, adjust="fdr", number=5000000), file="all.txt", quote=FALSE, sep="\t")
+
+
+
+library(affy)
+library(gcrma)
+library(hgu133ahsentrezgcdf) #cdfname="HGU133A_HS_ENTREZG"
+library(hgu133ahsentrezgprobe)
+library(hgu133ahsentrezg.db)
+
+#Set working directory for output
+setwd("~/output_dir")
+
+#Set CDF to use
+cdf="HGU133A_HS_ENTREZG"
+
+#Read in the raw data from specified dir of CEL files
+raw.data.ALL=ReadAffy(verbose=TRUE, celfile.path="/path/to/cel/files", cdfname=cdf)
+
+#perform GCRMA normalization
+data.gcrma.norm.ALL=gcrma(raw.data.ALL)
+
+#Get the important stuff out of the data - the expression estimates for each array
+gcrma.ALL=exprs(data.gcrma.norm.ALL)
+
+#Remove control probes
+gcrma.ALL=gcrma.ALL[1:12065,] #Remove Affy control probes, custom CDF
+
+#Format values to 5 decimal places
+gcrma.ALL=format(gcrma.ALL, digits=5)
+
+#Map probes to gene symbols
+#To see all mappings for Entrez gene db associated with customCDF
+ls("package:hgu133ahsentrezg.db") #customCDF
+
+#Extract probe ids, entrez symbols, and entrez ids
+probes.ALL=row.names(gcrma.ALL)
+symbol.ALL = unlist(mget(probes.ALL, hgu133ahsentrezgSYMBOL))
+ID.ALL = unlist(mget(probes.ALL, hgu133ahsentrezgENTREZID))
+
+#Combine gene annotations with raw data
+gcrma.ALL=cbind(probes.ALL,ID.ALL,symbol.ALL,gcrma.ALL)
+
+#Write GCRMA-normalized, mapped data to file
+write.table(gcrma.ALL, file = "ALL_gcrma.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
+
+
+```
+
+
+```{r  test}
+
+##################################
+##################################
+######
+#####  Genes: 
+#####  Data: GSE57345
+#####  
+######
+##################################
+##################################
+
+
+###@ prepare for data
+
+##read data
+setwd("F:/project/20170612_朱伟东")
+#microarray <- read.table("GSE57345-GPL11532_series_matrix.txt", header = T , row.names = 1 , comment.char = "!", quote = "\"")
+#clinical_ann <- read.table("clinical_ann.txt", header = T , sep = "\t" , na.strings = "" , quote = "\"")
+#rownames(clinical_ann) <- clinical_ann$ID
+
+load("F:/project/20170612_朱伟东/.RData")
+
+candidate <- read.table("candidate_probe.txt", sep = "\t", header =TRUE)#[c("candidate")]
+rownames(candidate) <- candidate$ID
+#total_sample_n = length(clinical_ann$ID)
+
+#-----------------------------------------------------------------------
+
+#boxplot(microarray, col='green' , outline = F , las = 2) 
+
+#-----------------------------------------------------------------------
+###boxplot
+normal <- data.frame( t( microarray[as.character(candidate$ID) , rownames(clinical_ann[clinical_ann$type == "normal", ])] ) )
+DCM <- data.frame( t( microarray[as.character(candidate$ID) , rownames(clinical_ann[clinical_ann$type == "DCM", ])] ) )
+ISCH <- data.frame( t( microarray[as.character(candidate$ID) , rownames(clinical_ann[clinical_ann$type == "ISCH", ])] ) ) 
+
+colnames(normal) <- gsub("X", "", as.character( colnames(normal) ) )
+colnames(DCM) <- gsub("X", "", as.character( colnames(DCM) ) )
+colnames(ISCH) <- gsub("X", "", as.character( colnames(ISCH) ) )
+
+label_normal <- data.frame( classfication = rep("normal",dim(normal)[1]) )
+new_normal <- cbind(normal,label_normal)
+
+label_DCM <- data.frame( classfication = rep("DCM",dim(DCM)[1]) )
+new_DCM <- cbind(DCM,label_DCM)
+
+label_ISCH <- data.frame( classfication = rep("ISCH",dim(ISCH)[1]) )
+new_ISCH <- cbind(ISCH,label_ISCH)
+
+#my_data <- rbind( cbind(label_normal, t(normal) ), cbind(label_DCM, t(DCM) ) , cbind(label_ISCH, t(ISCH) ) )
+
+
+library(reshape2)
+normal.melt<-melt(new_normal , id=c("classfication") , variable.name = "gene", value.name = "exp")
+DCM.melt<-melt(new_DCM , id=c("classfication") , variable.name = "gene", value.name = "exp")
+ISCH.melt<-melt(new_ISCH , id=c("classfication") , variable.name = "gene", value.name = "exp")
+
+#choose
+#all.melt <- rbind(normal.melt,DCM.melt,ISCH.melt)
+all.melt <- rbind(normal.melt,DCM.melt)
+#all.melt <- rbind(normal.melt,ISCH.melt)
+
+gene_name <- data.frame( candidate[all.melt$gene,] )
+all.melt.ann <- cbind(all.melt, name=gene_name$name)
+
+#reorder,relevel
+all.melt.ann$name <- factor(all.melt.ann$name, levels = candidate$name)
+
+pdf(file = "all.pdf" ,width = 16, height = 9)
+library(ggplot2)
+ggplot(data = all.melt.ann) + 	
+  #geom_violin(aes(x = classfication , y = my_data$`7961339`, fill = classfication)) +
+  geom_boxplot(aes(x = name, y = exp, fill = classfication) , outlier.shape=NA , notch = T , width=0.5 , position=position_dodge(width=0.8) ) +
+  #geom_jitter(aes(x = name, y = exp),width = 0.2)+
+  #geom_boxplot(aes(x = reorder(name, exp, median) , y = exp, fill = classfication) , outlier.shape=NA) +
+  xlab("genes") + ylab("normalized gene exp (log2)") +	
+  #theme_classic() +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, vjust=0.6))
+  #facet_wrap(~ classfication, scales="free")+
+  #facet_wrap(~ gene, scales="free")
+  #scale_colour_manual(values = c('darkgreen','grey','red'))
+
+dev.off()
+
+normal <- data.frame( microarray[ "7950473", rownames(clinical_ann[clinical_ann$type == "normal", ])] )
+DCM <- data.frame( microarray["7950473" , rownames(clinical_ann[clinical_ann$type == "DCM", ])] )
+ISCH <- data.frame( microarray["7950473" , rownames(clinical_ann[clinical_ann$type == "ISCH", ])] )
+library("plyr")
+my_data=rbind.fill(normal,DCM,ISCH)
+rownames(my_data) <- c("normal","DCM","ISCH")
+boxplot( t(my_data), col=c("grey","red","pink") , outline = F , las = 2 , pch = 4 , notch = TRUE )
+#count(candidate$name)
+
+library(ggplot2)
+my_gene="DKK1"
+all.melt.ann_choose <- all.melt.ann[which(all.melt.ann$name==my_gene),]
+
+pdf(file = paste0("pdf/",my_gene,"_normal_DCM.pdf"),width = 6, height = 8)
+ggplot(data = all.melt.ann_choose, aes(x=classfication, y=exp)) + 	
+  #geom_violin(aes(x = classfication , y = gene_exp, fill = classfication)) +
+  #geom_boxplot(aes(x = classfication , y = exp, fill = classfication)) + 
+  #stat_boxplot(aes(x = classfication , y = exp) , geom ='errorbar',width=0.25) + 
+  geom_errorbar(aes(color = classfication), stat="boxplot",linetype="solid",width=0.25,size=1)+
+  geom_linerange(stat="boxplot",linetype="solid",color="white",size=1)+
+  geom_linerange(aes(color = classfication),stat="boxplot",linetype="dashed",size=1)+
+  #geom_crossbar(aes(ymin=..lower.., ymax=..upper..),linetype="solid")+
+  geom_boxplot(aes(fill = classfication,ymin=..lower..,ymax=..upper..) ,linetype="solid", outlier.shape=NA, notch = TRUE , width=0.5 , size=0.5 ,show.legend = F) +
+  geom_jitter(width = 0.25 , size=0.75 , color ="blue" , alpha=0.5)+#color="grey"
+  #geom_dotplot(aes(x = classfication , y = exp, fill = classfication),binaxis = "y", stackdir = "center",binwidth = 0.04) +
+  xlab("Patient classfication") + ylab("Normalized gene exp\n(log2)")	+
+  ggtitle(my_gene) +
+  theme_classic() +
+  theme(plot.title = element_text(colour="black", size = 17,face="bold",hjust = 0.5),
+        axis.text.x = element_text(colour="black", size = 13),
+        axis.text.y = element_text(colour="black", size = 13),
+        axis.title.x = element_text(colour="black", size = 15),
+        axis.title.y = element_text(colour="black", size = 15),
+        legend.text = element_text(colour="black", size = 13),
+        legend.title = element_text(colour="black", size = 15)
+        #legend.title = element_blank()
+        #legend.position = "none"
+        )+
+  scale_fill_manual(values = c("grey","darkorange","red"))+
+  scale_colour_manual(values = c("grey","darkorange","red"))+
+  ylim(2.5, 4)
+dev.off()
+
+for ( my_gene in unique(all.melt.ann$name) ){
+  print(my_gene)
+  all.melt.ann_choose <- all.melt.ann[which(all.melt.ann$name==my_gene),]
+  pdf(file = paste0("pdf/",my_gene,"_normal_DCM.pdf"),width = 6, height = 8)
+  gg<- ggplot(data = all.melt.ann_choose, aes(x=classfication, y=exp)) + 	
+    #geom_violin(aes(x = classfication , y = gene_exp, fill = classfication)) +
+    #geom_boxplot(aes(x = classfication , y = exp, fill = classfication)) + 
+    #stat_boxplot(aes(x = classfication , y = exp) , geom ='errorbar',width=0.25) + 
+    geom_errorbar(aes(color = classfication), stat="boxplot",linetype="solid",width=0.25,size=1)+
+    geom_linerange(stat="boxplot",linetype="solid",color="white",size=1)+
+    geom_linerange(aes(color = classfication),stat="boxplot",linetype="dashed",size=1)+
+    #geom_crossbar(aes(ymin=..lower.., ymax=..upper..),linetype="solid")+
+    geom_boxplot(aes(fill = classfication,ymin=..lower..,ymax=..upper..) ,linetype="solid", outlier.shape=NA, notch = TRUE , width=0.5 , size=0.5 ,show.legend = F) +
+    geom_jitter(width = 0.25 , size=0.75 , color ="blue" , alpha=0.5)+#color="grey"
+    #geom_dotplot(aes(x = classfication , y = exp, fill = classfication),binaxis = "y", stackdir = "center",binwidth = 0.04) +
+    xlab("Patient classfication") + ylab("Normalized gene exp\n(log2)")	+
+    ggtitle(my_gene) +
+    theme_classic() +
+    theme(plot.title = element_text(colour="black", size = 17,face="bold",hjust = 0.5),
+          axis.text.x = element_text(colour="black", size = 13),
+          axis.text.y = element_text(colour="black", size = 13),
+          axis.title.x = element_text(colour="black", size = 15),
+          axis.title.y = element_text(colour="black", size = 15),
+          legend.text = element_text(colour="black", size = 13),
+          legend.title = element_text(colour="black", size = 15)
+          #legend.title = element_blank()
+          #legend.position = "none"
+    )+
+    scale_fill_manual(values = c("grey","darkorange","red"))+
+    scale_colour_manual(values = c("grey","darkorange","red"))
+    #scale_alpha(guide = 'none')
+  #ylim(2.5, 4)
+  
+  print(gg)
+  #ggsave
+  dev.off()
+}
+
+#-----------------------------------------------------------------------
+
+###heatmap
+new_normal_mean <- colMeans(new_normal[,1:length(new_normal)-1])
+new_DCM_mean <- colMeans(new_DCM[,1:length(new_DCM)-1])
+new_ISCH_mean <- colMeans(new_ISCH[,1:length(new_ISCH)-1])
+
+all.mean <- data.frame(normal=new_normal_mean , DCM=new_DCM_mean , ISCH=new_ISCH_mean)
+all.mean.z <- t(apply(all.mean, 1, function(x) (x-mean(x))/sd(x)))
+
+gene_name <- data.frame( candidate[rownames(all.mean.z),] )
+rownames(all.mean.z) <- gene_name$name
+
+library(pheatmap)
+pheatmap(all.mean.z , filename = "all_heatmap_2.pdf",width = 6, height = 8) 
+pheatmap(all.mean.z[,1:2],  treeheight_row = 0 , treeheight_col = 0) 
+
+all.mean.z.choose<- all.mean.z[grep(rownames(all.mean.z) ,pa='WNT'),]
+pheatmap(all.mean.z.choose[,1:2], treeheight_row = 0 , treeheight_col = 0  , filename = "WNT_heatmap.pdf",width = 4, height = 8)
+
+all.mean.z.choose<- all.mean.z[c(grep(rownames(all.mean.z) ,pa='WNT') , which( rownames(all.mean.z) %in% c("LRP5","LRP6","CTNNB1") ) ),]
+pheatmap(all.mean.z.choose[,1:2], treeheight_row = 0 , treeheight_col = 0  , filename = "choose_heatmap.pdf",width = 4, height = 8)
+#color = colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
+
+#test#似乎不太适合少量基因和少量样本（或者直接使用均值）
+new_normal_mean <- colMeans(new_normal[,1:length(new_normal)-1])
+new_DCM_mean <- colMeans(new_DCM[,1:length(new_DCM)-1])
+all.mean <- data.frame(normal=new_normal_mean , DCM=new_DCM_mean)
+
+all.mean <- data.frame(normal=new_normal_mean , DCM=new_DCM_mean , mean_correct=rep(5,length(new_normal_mean)))
+all.mean.z <- t(apply(all.mean, 1, function(x) (x-mean(x))/sd(x)))
+gene_name <- data.frame( candidate[rownames(all.mean.z),] )
+rownames(all.mean.z) <- gene_name$name
+
+pheatmap(all.mean,  treeheight_row = 0 , treeheight_col = 0) 
+pheatmap(all.mean.z[,1:2],  treeheight_row = 0 , treeheight_col = 0)
+
+#-----------------------------------------------------------------------
+
+### PCA
+data_pca <- prcomp(t(microarray),scale.=T)
+summary(data_pca)
+percentVar <- summary(data_pca)$importance[2,1:2]
+
+data_pca_x <- data.frame( data_pca$x[,1:2] )
+data_pca_rotation <- data.frame( data_pca$rotation[as.character(candidate$ID),1:2] )
+gene_name <- data.frame( candidate[rownames(data_pca_rotation),] )
+data_pca_rotation <- cbind(data_pca_rotation, name=gene_name$name)
+
+data_pca_x <- merge(data_pca_x,clinical_ann,by.x = "row.names",by.y="row.names")
+#colnames(data_pca)[1]<- "name"
+data_pca_x$type <- as.factor(data_pca_x$type)
+
+#plot(data.frame( data_pca$rotation[,1:2] ))
+
+#Add a column
+#data.frame(data_pca,name=data_pca$Row.names)
+#within(data_pca,{name <-data_pca$Row.names})
+library(ggplot2)
+gg_main<-ggplot(data=data_pca_x, aes(PC1, PC2)) + 
+  geom_point(aes(color = type)) +
+  #scale_color_manual(values = c("green","red")) + 
+  #    scale_shape_manual(values=c(16,1,17,2)) +
+  # scale_shape_manual(values=c(16,17)) + 
+  #    scale_size_manual(values = c(2,4)) + 
+  xlab(paste0("PC1: ",percentVar[1]*100,"% variance")) + 
+  ylab(paste0("PC2: ",percentVar[2]*100,"% variance")) +
+  geom_hline(yintercept = 0 , linetype="dashed")+
+  geom_vline(xintercept = 0 , linetype="dashed")+
+  theme(legend.position = c(.95, .95))
+        #plot.margin = unit(c(3,3,3,3), "mm"))
+        #legend.position = "bottom")
+        
+
+        
+  #geom_rug(size=0.1) 
+#coord_fixed()
+#dev.off()
+library(scales)
+
+gg_top<-ggplot(data=data_pca_x, aes(PC1, colour = type, fill = type)) +
+  geom_density(alpha = 0.1,show.legend=F) + 
+  #scale_y_continuous(labels=scientific)
+  scale_y_continuous(labels=percent)
+  #theme(plot.margin = unit(c(3,3,3,3), "mm"))
+
+
+gg_right<-ggplot(data=data_pca_x, aes(PC2, colour = type, fill = type)) + 
+  geom_density(alpha = 0.1,show.legend=F) + 
+  #scale_y_continuous(labels=scientific)
+  scale_y_continuous(labels=percent) + 
+  coord_flip() 
+  #theme(plot.margin = unit(c(3,3,3,3), "mm"))
+
+empty <- ggplot()+geom_point(aes(1,1), colour="white")+
+  theme(axis.ticks=element_blank(), 
+        panel.background=element_blank(), 
+        axis.text.x=element_blank(), axis.text.y=element_blank(),           
+        axis.title.x=element_blank(), axis.title.y=element_blank())
+
+#method1
+library(gridExtra)
+grid.arrange(gg_top, empty , gg_main, gg_right, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+
+#method2
+library(gtable)
+library(dplyr)
+library(grid)
+## plot heatmap without legend
+g <- ggplotGrob(gg_main + theme(legend.position="none"))
+
+## add column and put column barplot within
+g <- gtable_add_cols(g, unit(5,"cm"))
+g <- gtable_add_grob(g, ggplotGrob(gg_right), 
+                     t = 1, l=ncol(g), b=nrow(g), r=ncol(g))
+
+## add row and put legend within
+#g <- gtable_add_rows(g, unit(1,"cm"))
+#g <- gtable_add_grob(g, legend, 
+#                     t = nrow(g), l=1, b=nrow(g), r=ncol(g)-1)
+
+## add row on top and put row barplot within
+g <- gtable_add_rows(g, unit(5,"cm"), 0)
+g <- gtable_add_grob(g, ggplotGrob(gg_top),
+                     t = 1, l=1, b=1, r=5) 
+
+grid.newpage()
+grid.draw(g)
+
+
+#method3
+library(ggExtra)
+ggMarginal(
+  p = gg_main,
+  type = 'density',
+  margins = 'both',
+  size = 5,
+  col = 'black'
+)
+
+
+
+ggplot(data=data_pca_rotation, aes(PC1, PC2)) + 
+  #geom_point(alpha=0.75, size=1, na.rm = T) +
+  geom_text(aes(label=name), size = 4) +
+  #scale_color_manual(values = c("green","red")) + 
+  #    scale_shape_manual(values=c(16,1,17,2)) +
+  # scale_shape_manual(values=c(16,17)) + 
+  #    scale_size_manual(values = c(2,4)) + 
+  xlab(paste0("PC1: ",percentVar[1]*100,"% variance")) + 
+  ylab(paste0("PC2: ",percentVar[2]*100,"% variance")) +
+  #geom_abline()
+  geom_hline(yintercept = 0 , linetype="dashed")+
+  geom_vline(xintercept = 0 , linetype="dashed")
+#coord_fixed()
+#dev.off()
+
+#-----------------------------------------------------------------------
+
+###correlation
+
+#cor.test(x, y, alternative = c(“two.sided”, “less”, “greater”), method = c("pearson", "kendall", "spearman"),conf.level = 0.95)
+
+all.melt.ann$type <- factor(all.melt.ann$classfication,labels=c(1, 2, 3))
+
+all.melt.ann_choose <- all.melt.ann[which(all.melt.ann$name=="LRP12"),]
+all.melt.ann_choose$type <- as.numeric(all.melt.ann_choose$type)
+
+cor.test(all.melt.ann_choose$exp, all.melt.ann_choose$type, alternative = c("two.sided"), method = c("spearman"), conf.level = 0.95)
+
+
+#-----------------------------------------------------------------------
+#参数检验，需方差齐，需数据正态分布
+###ANOVA
+
+all.melt.ann$type <- factor(all.melt.ann$classfication,labels=c(1, 2, 3))
+
+all.melt.ann_choose <- all.melt.ann[which(all.melt.ann$name=="LRP5"),]
+all.melt.ann_choose$type <- as.numeric(all.melt.ann_choose$type)
+
+#check the var
+bartlett.test(exp~type,data=all.melt.ann_choose)
+
+#check normality
+shapiro.test(all.melt.ann_choose$exp)
+plot( density( all.melt.ann_choose$exp ) )
+
+#ANOVA
+m1<-aov(exp~type,data=all.melt.ann_choose)
+summary(m1)
+
+#残差不满足正态性,方差不齐时使用,非参检验
+kruskal.test(exp~type,data=all.melt.ann_choose)
+
+
+#var.test() => F Test to Compare Two Variances
+#aov.test() => F Test to Compare more than Two Variances
+#-----------------------------------------------------------------------
+#参数检验，需数据正态分布，区分方差是否相等，区分是否配对，区分双侧与单侧检验
+###t-tesT
+
+#Perform t-test
+my_gene="LRP5"
+my_gene_ID=as.character( candidate[which(candidate$name==my_gene),1] )
+
+# check 
+#var.test() Compare Two Variances is equal ?
+ 
+# do
+t.test(normal[,my_gene_ID],DCM[,my_gene_ID],var.equal=T)$p.value
+t.test(normal[,my_gene_ID],ISCH[,my_gene_ID],var.equal=T)$p.value
+
+
+
+pvalue <- apply( data.frame(candidate$ID) , 1 , function(x) t.test(normal[,as.character(x)],DCM[,as.character(x)],var.equal=T)$p.value)
+normal_DCM <- data.frame(pvalue)
+rownames(normal_DCM) <- candidate$ID
+normal_DCM <- data.frame(normal_DCM , gene=candidate[rownames(normal_DCM),"name"] )
+normal_DCM <- normal_DCM[order(normal_DCM$pvalue),]
+write.table(normal_DCM, file = "normal_DCM(t-test).txt",sep="\t",quote = F,row.names = F)
+
+pvalue <- apply( data.frame(candidate$ID) , 1 , function(x) t.test(normal[,as.character(x)],ISCH[,as.character(x)],var.equal=T)$p.value)
+normal_ISCH <- data.frame(pvalue)
+rownames(normal_ISCH) <- candidate$ID
+normal_ISCH <- data.frame(normal_ISCH , gene=candidate[rownames(normal_ISCH),"name"] )
+normal_ISCH <- normal_ISCH[order(normal_ISCH$pvalue),]
+
+#-----------------------------------------------------------------------
+#非参数检验，排秩，不需要数据分布
+###wilcox.test()
+
+wilcox.test(x,y)
+
+
+
+
+
+```
+
+
+
+
+
+
+
+```{r read series matrix merge}
+setwd("/home/qszhu/workspace/4.sin3a/4.microarray/1.GSE24842/")
+microarray <- read.table("GSE24842_series_matrix.txt", header = T , row.names = 1 , comment.char = "!", quote = "\"")
+platform_ann <- read.table("GSE24842_annotation.tab", header = T , sep = "\t" , na.strings = c("","NA"), quote = "\"")
+rownames(platform_ann) <- platform_ann$ID
+
+exp <- microarray
+
+exp_ann <- merge(exp,platform_ann,by.x = "row.names",by.y="row.names")
+exp_ann_noNA <- exp_ann[which(!is.na(exp_ann$Name) & exp_ann$Name != "NA"),]
+exp_ann_noNA_uniq <- exp_ann_noNA[which(!duplicated(exp_ann_noNA$Name)),]
+rownames(exp_ann_noNA_uniq) <- exp_ann_noNA_uniq$Name
+exp_ann_noNA_uniq_col <- exp_ann_noNA_uniq[,2:16]
+
+exp_ann_noNA_dup <- exp_ann_noNA[which(duplicated(exp_ann_noNA$Name)),]
+exp_ann_noNA_dup$Name <- factor(exp_ann_noNA_dup$Name)
+
+exp_ann_noNA_dup_col <- exp_ann_noNA_dup[,c(2:16)]
+exp_ann_noNA_dup_col_median <- as.data.frame( apply(exp_ann_noNA_dup_col,2, function(x) tapply(x,exp_ann_noNA_dup$GENE_SYMBOL,median)) )  #median
+
+#test <- unique(exp_ann_noNA_dup$GENE_SYMBOL)
+#exp_ann_noNA_dup[which(exp_ann_noNA_dup$GENE_SYMBOL == test[1]),]
+
+exp_ann_noNA_all <- rbind(exp_ann_noNA_uniq_col,exp_ann_noNA_dup_col_median)
+
+#=================================================================================================
+
+```
+
+
+```{r QC}
+#=================================================================================================
+###QC check
+#boxplot
+
+boxplot(exp_ann_noNA_all, col='green' , outline = F) 
+
+#density
+color=c('green','green','red','red')
+plot(0,lwd=2,ylab='Density',xlab='Log2 intensities',main = "density of data",xlim = c(2, 6), ylim = c(0,3))
+for (i in 1:15){lines(density(log2(exp_ann_noNA_all[,i])),col=color[i])}
+
+#hist(iris$Sepal.Length,breaks=seq(4,8,by=1))
+
+#PCA
+
+#raw: genes col:samples
+color=c('green','green','red','red')        
+data_pca <- prcomp(t(exp_ann_noNA_all),scale. = T) 
+plot(data_pca$x,col=color)
+
+#rotation: variable loading factor --- genes
+#x: --- samples 
+
+library(ggplot2)
+data_pca <- prcomp(t(exp_ann_noNA_all),scale = T) 
+summary(data_pca)
+percentVar <- summary(data_pca)$importance[2,1:2]
+data_pca <- as.data.frame(data_pca$x[,1:2])
+data_pca <- data.frame(data_pca,name=c("031.shTet1_scr.CEL","032.shTet1_scr.CEL","033.shTet1_scr.CEL",
+                 "041.shTet1_4.CEL","042.shTet1_4.CEL","043.shTet1_4.CEL",
+                 "051.shTet1_5.CEL","052.shTet1_5.CEL","053.shTet1_5.CEL",
+                 "061.shSin3A_scr.CEL","062.shSin3A_scr.CEL","063.shSin3A_scr.CEL",
+                 "071.shSin3A.CEL","072.shSin3A.CEL","073.shSin3A.CEL")
+                  )
+data_pca <- data.frame(data_pca,treatment=c("1,1,1,2,2,2,3,3,3,4,4,4,5,5,5"))
+data_pca$treatment <- as.factor(data_pca$treatment)
+
+ggplot(data_pca, aes(PC1, PC2)) + 
+    geom_point(aes(color = treatment),size = 4) +
+    #geom_text(aes(label=name, color = treatment), size = 4) +
+    #scale_color_manual(values = c("green","red")) + 
+    xlab(paste0("PC1: ",percentVar[1]*100,"% variance")) + 
+    ylab(paste0("PC2: ",percentVar[2]*100,"% variance")) 
+
+#library(tsne)   ###new methods
+
+#hcluster
+hc <- hclust( dist(t(exp_ann_noNA_all), method = "euclidean") )
+plot(hc,hang = -1)
+
+#heatmap
+library(pheatmap)
+cormat <- round(cor(exp_ann_noNA_all,method = "spearman"),2) 
+pheatmap(cormat,display_numbers = T)
+```
+
+
+
+```{r limma }
+#--------------------------------------------------------------------
+#--> limma
+library("limma")
+
+exp_tet4 = exp_ann_noNA_all[,c(1:3,7,8,9)]
+groups =  c("WT","WT","WT","KO","KO","KO")
+f = factor(groups,levels=c("WT","KO"))
+design = model.matrix(~ 0 + f)
+colnames(design) = c("WT","KO")
+
+data.fit = lmFit(exp_tet4,design)
+#data.fit$coefficients[1:10,]
+contrast.matrix = makeContrasts(KO-WT,levels=design) #coef=1  #cont.matrix <- makeContrasts(MUvsWT=MU-WT, levels=design) #topTable(fit, coef="MUvsWT", adjust="BH")
+data.fit.con = contrasts.fit(data.fit,contrast.matrix)
+data.fit.eb = eBayes(data.fit.con)
+#names(data.fit.eb)
+#data.fit.eb$coefficients[1:10,] #fold-change
+#data.fit.eb$t[1:10,]
+#data.fit.eb$p.value[1:10,]
+
+#--> 火山图 all
+name = "Volcano.jpg"
+jpeg(name)
+volcanoplot(data.fit.eb,coef=1,highlight=10)  
+abline(v=c(1,-1))
+dev.off()
+
+
+#DEresults <- decideTests(data.fit.eb,method='global',adjust.method="BH",p.value=0.05,lfc=1)
+#DEresults[1:10,]
+
+
+#--> filter genes
+#tab = topTable(data.fit.eb,coef=2,number=200,adjust.method="BH")
+#topTable(data.fit.eb, coef=1, adjust="fdr", sort.by="P", number=20) 
+#topTable(data.fit.eb, coef=1, adjust="BH",number = 20)
+#gene.up <- tab[tab$adj.P.Val < 0.01 & (tab$logFC > 1) & tab$AveExpr > 5,]
+
+tab <- topTable(data.fit.eb, coef=1, adjust="fdr", sort.by="P", number=50000) 
+gene.up <- tab[tab$adj.P.Val < 0.05 & (abs(tab$logFC) >= 0.585),] # log2  1  0.585
+
+
+
+
+
+
+
+#gene.up <- tab[tab$P.Value < 0.01 & (tab$logFC >= 1),] # log2  1  0.585
+gene.up  <- data.frame( gene.up , name = rownames(gene.up) )
+gene.up <- gene.up[order(gene.up$name),]
+write.table(gene.up, file="de.tet5.tab", row.names=F, sep="\t", quote=FALSE) 
+
+tab <- topTable(data.fit.eb, coef=1, adjust="fdr", sort.by="P", number=50000) 
+#gene.down <- tab[tab$adj.P.Val < 0.1 & (tab$logFC <= -0.585),]
+gene.down <- tab[tab$P.Value < 0.01 & (tab$logFC <= -0.585),] # log2  1  0.585
+gene.down  <- data.frame( gene.down , name = rownames(gene.down) )
+gene.down <- gene.down[order(gene.down$name),]
+write.table(gene.down, file="WT_vs_KO_down(in-KO)_fold-1.5_limma.tab", row.names=F, sep="\t", quote=FALSE) 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

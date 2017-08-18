@@ -1,0 +1,190 @@
+---
+title: "DESeq_featureCounts"
+author: "zhu"
+date: "2017/8/14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(DESeq2)
+library(RColorBrewer)
+library(ggplot2)
+library(pheatmap)
+library(sva)
+
+
+```
+
+###Tips for read.table###
+#check.names # no X before number/./_/
+#sep #separator character #sep = "\t"
+#comment.char = "#"  #for comment
+#quote = "\"'"  #quoting characters
+#na.strings = "NA" # change "NA" to real NA ###na.strings = "", change nothing to real NA
+#stringsAsFactors=F # as factor or not?
+#nrows fill 
+```{r input data}
+geneCounts <- read.table(file = "~/workspace/6.muscle_ageing/5.RNA_analysis/2.featureCounts/merge_featureCounts.tab" , header = T , row.names = 1 , sep = "\t" , check.names = F , comment.char = "")
+geneCounts <- geneCounts[,7:12]
+
+#candidate_genes <- read.table(file = "candidate_genes.txt" , header = T , sep = "\t")
+
+sample.names <- colnames(geneCounts)
+treat.conditions <- factor(substr(sample.names,1,2))
+rep.labels <- factor(substr(sample.names,7,10)) 
+age.conditions <- factor(substr(sample.names,4,5),labels = c("old","young"))
+##check & choose
+
+sampleTable <- data.frame(row.names = sample.names,
+                          #treat = treat.conditions,
+                          age = age.conditions, replicate = rep.labels)
+
+ddsMatrix <- DESeqDataSetFromMatrix(countData = geneCounts,
+                              colData = sampleTable,
+                              design = ~ age  + replicate
+                            )
+
+```
+
+
+```{r results}
+dds <- DESeq(ddsMatrix)
+
+colData(dds)
+res <- results(dds,contrast = c("age","old","young"))
+#res <- results(dds,contrast = c("ploidy","Haploid","Diploid"))
+#res <- results(dds,contrast = c("condition","1100","1110"))
+#res$padj <- res$pvalue
+summary(res)
+#head(counts(ddsHTSeq,normalized=TRUE))
+```
+
+
+```{r count DE number}
+length(which(res$log2FoldChange < -0.585 & res$pvalue < 0.05))
+length(which(res$log2FoldChange > 0.585 & res$pvalue < 0.05))
+
+
+
+##观察cuffdiff和deseq两种方法的差异基因有多少区别
+res <- data.frame(res)
+up.deseq <- rownames(res[which(res$log2FoldChange > 0.585 & res$pvalue < 0.05),])
+down.deseq <- rownames(res[which(res$log2FoldChange < -0.585 & res$pvalue < 0.05),])
+
+down.cuffdiff <- rownames(gene_exp.diff[which(gene_exp.diff$log2.fold_change. < -0.585 & gene_exp.diff$p_value < 0.05),])
+up.cuffdiff <- rownames(gene_exp.diff[which(gene_exp.diff$log2.fold_change. > 0.585 & gene_exp.diff$p_value < 0.05),])
+
+length(down.cuffdiff)
+length(up.cuffdiff)
+length(down.deseq)
+length(up.deseq)
+length(intersect(down.deseq,down.cuffdiff))
+length(intersect(up.deseq,up.cuffdiff))
+
+```
+
+
+```{r MA plot}
+plotMA(res, main="DESeq2", ylim=c(-2,2))
+plotCounts(dds, gene="Hoxa9", intgroup="age") #which.min(res$pvalue)
+```
+
+```{r rlog}
+rld <- rlog(dds, blind=TRUE)
+vsd <- varianceStabilizingTransformation(dds, blind=FALSE)
+vsd.fast <- vst(dds, blind=FALSE)
+head(assay(rld), 3)
+
+res.data <-data.frame(res)
+res.data$baseMeanA = rowMeans(assay(rld)[,dds$age =="old"])
+res.data$baseMeanB = rowMeans(assay(rld)[,dds$age =="young"])
+```
+
+```{r gene heatmap}
+library("pheatmap")
+select <- order(rowMeans(counts(dds,normalized=TRUE)),decreasing=TRUE)[1:20]
+select <- grep("Hoxa",rownames(dds))
+nt <- normTransform(dds) # defaults to log2(x+1)
+log2.norm.counts <- assay(nt)[select,]
+# dds$time = Time
+# dds$ploidy = Ploidy
+# dds$sample = Sample
+df <- as.data.frame(colData(dds)[,c("age","replicate")])
+pheatmap(log2.norm.counts, cluster_rows=T, show_rownames=T,cluster_cols=FALSE, annotation_col=df)
+pheatmap(assay(rld)[select,], cluster_rows=T, show_rownames=T,cluster_cols=FALSE, annotation_col=df)
+pheatmap(assay(vsd)[select,], cluster_rows=T, show_rownames=T,cluster_cols=T, annotation_col=df)
+```
+
+```{r correlation heatmap}
+
+sampleDists <- dist(t(assay(rld)))
+sampleDistMatrix <- as.matrix(sampleDists)
+rownames(sampleDistMatrix) <- paste(Sample, Time, Ploidy, sep="-")
+colnames(sampleDistMatrix) <- NULL
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+pheatmap(sampleDistMatrix,clustering_distance_rows=sampleDists,clustering_distance_cols=sampleDists,col=colors)
+```
+
+```{r pca}
+#("RNA_deseq2_pca2.pdf")
+#plotPCA(rld, intgroup=c("sample", "time","ploidy"))
+data <- plotPCA(rld, intgroup=c("age","replicate"), returnData=TRUE)
+#data <- prcomp(t(dat2))
+percentVar <- round(100 * attr(data, "percentVar"))
+#datx = as.data.frame(data$x)
+ggplot(data, aes(PC1, PC2)) + geom_point(aes(color = age, shape = replicate),size= 4) +
+    scale_color_manual(values = c("green","red")) + 
+#    scale_shape_manual(values=c(16,1,17,2)) +
+   # scale_shape_manual(values=c(16,17)) + 
+#    scale_size_manual(values = c(2,4)) + 
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) + 
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed()
+#dev.off()
+```
+
+
+
+```{r volcano plot}
+res_frame <- data.frame(res)
+res_frame <- res_frame[which(!is.na(res_frame$pvalue)),]
+with(res_frame, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot"))
+res_frame$change <- as.factor(ifelse(res_frame$pvalue < 0.05 & abs(res_frame$log2FoldChange) > log2(1.5),
+                               ifelse(res_frame$log2FoldChange > 0, "UP", "DOWN"), "NOT"))
+
+g = ggplot(data=res_frame, aes(x=log2FoldChange, y=-log10(pvalue), color=change)) +
+  geom_point(alpha=0.5, size=1,na.rm = T) +
+  theme_set(theme_set(theme_bw(base_size=20)))+
+  xlab("log2 fold change") + ylab("-log10 pvalue") +
+  #ggtitle( this_tile  ) + theme(plot.title = element_text(size=15,hjust = 0.5))+
+  scale_colour_manual(values = c('darkgreen','grey','red'))  ## corresponding to the levels(res$change)
+
+spe_genes <- c("Hoxa9","Hoxa10","Hoxa1","Hoxc1")
+spe_frame <- res_frame[spe_genes,]
+spe_frame$name <- as.factor(rownames(spe_frame))
+
+g2 <- g + 
+  geom_point(aes(x=log2FoldChange, y=-log10(pvalue)), data = spe_frame, color="yellow")+
+  geom_text(aes(x=log2FoldChange, y=-log10(pvalue),label=name,vjust=-1,hjust=-0.1), data = spe_frame,color="black")
+
+print(g2)
+ggsave("muscle_ageing_volcano_plot_DESeq2.png",g2)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,196 @@
+track CC
+bigDataUrl cc.bw
+shortLabel CC
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 05h
+bigDataUrl 05h.bw
+shortLabel Transfer 30min
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 1h
+bigDataUrl 1h.bw
+shortLabel Transfer 1h
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 2h
+bigDataUrl 2h.bw
+shortLabel Activate 1h
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 6h
+bigDataUrl 6h.bw
+shortLabel Activate 6h
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 12h
+bigDataUrl 12h.bw
+shortLabel Activate 12h
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track e2cell
+bigDataUrl e2cell.bw
+shortLabel Early 2cell
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track l2cell
+bigDataUrl l2cell.bw
+shortLabel Late 2cell
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 4cell
+bigDataUrl 4cell.bw
+shortLabel 4cell
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 8cell
+bigDataUrl 8cell.bw
+shortLabel 8cell
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track morula
+bigDataUrl morula.bw
+shortLabel Morula
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track icm
+bigDataUrl icm.bw
+shortLabel ICM
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track te
+bigDataUrl te.bw
+shortLabel TE
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+
+#type bigWig -0.25 37.6
+#autoScale <on|off> # default is on
+#alwaysZero <on|off> # default is off
+#maxHeightPixels   <max:default:min>    # default is 128:128:11   <100:32:8|128:128:11|100:16:8>
+#graphType <bar|points>  # default is bar
+#viewLimits <lower:upper> # default is range found in data   5:20
+#viewLimitsMax <lower:upper> # suggested bounds of viewLimits, but not enforced    0:37.6   0:100
+#yLineMark <real-value>  # default is 0.0   # 15
+#yLineOnOff <on|off> # default is off
+#gridDefault <on|off> # default is off
+#windowingFunction <mean+whiskers|maximum|mean|minimum> # default is maximum, mean+whiskers is recommended
+#smoothingWindow   <off|[2-16]>  # default is off
+#transformFunc <NONE|LOG>   # default is NONE

@@ -1,0 +1,182 @@
+track 2cell
+bigDataUrl 2cell.bw
+shortLabel 2cell
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 2cell.K27me3
+bigDataUrl 2cell.K27me3.bw
+shortLabel 2cell.K27me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 2cell.K4me3
+bigDataUrl 2cell.K4me3.bw
+shortLabel 2cell.K4me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 2cell.K9me3
+bigDataUrl 2cell.K9me3.bw
+shortLabel 2cell.K9me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 4cell
+bigDataUrl 4cell.bw
+shortLabel 4cell
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 4cell.K27me3
+bigDataUrl 4cell.K27me3.bw
+shortLabel 4cell.K27me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 4cell.K4me3
+bigDataUrl 4cell.K4me3.bw
+shortLabel 4cell.K4me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 4cell.K9me3
+bigDataUrl 4cell.K9me3.bw
+shortLabel 4cell.K9me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 8cell
+bigDataUrl 8cell.bw
+shortLabel 8cell
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 8cell.K27me3
+bigDataUrl 8cell.K27me3.bw
+shortLabel 8cell.K27me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 8cell.K4me3
+bigDataUrl 8cell.K4me3.bw
+shortLabel 8cell.K4me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track 8cell.K9me3
+bigDataUrl 8cell.K9me3.bw
+shortLabel 8cell.K9me3
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+
+track l2cell
+bigDataUrl l2cell.bw
+shortLabel l2cell
+longLabel  
+type bigWig
+autoScale on
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -5:5
+viewLimitsMax -100:100
+visibility full
+

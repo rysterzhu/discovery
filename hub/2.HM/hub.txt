@@ -1,0 +1,8 @@
+hub NT
+shortLabel NT compartment Histone Modificaation
+longLabel all NT compartment
+genomesFile genome.txt
+email zhuqianshu@tongji.edu.cn
+
+#http://genome-asia.ucsc.edu/cgi-bin/hgTracks?udcTimeout=1&db=mm10&hubUrl=http://wukong.tongji.edu.cn/UCSC_home/qszhu/hub/2.HM/hub.txt
+#http://wukong.tongji.edu.cn/UCSC_home/qszhu/hub/1.compartment/hub.txt

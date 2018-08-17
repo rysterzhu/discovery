@@ -34,7 +34,7 @@ autoScale off
 windowingFunction mean+whiskers
 color 252,141,89
 maxHeightPixels 100:50:10
-viewLimits 0:4
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 
@@ -87,7 +87,7 @@ autoScale off
 windowingFunction mean+whiskers
 color 252,141,89
 maxHeightPixels 100:50:10
-viewLimits 0:4
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 
@@ -140,7 +140,7 @@ autoScale off
 windowingFunction mean+whiskers
 color 252,141,89
 maxHeightPixels 100:50:10
-viewLimits 0:4
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 

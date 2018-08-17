@@ -1,5 +1,5 @@
 genome mm10
-trackDb track.txt
+trackDb https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/track.txt
 defaultPos chr19:0-60000000
 
 #genome newOrg1

@@ -1,5 +1,5 @@
 track es100
-bigDataUrl es100.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es100.PC1.bw
 shortLabel es100
 longLabel
 type bigWig
@@ -13,7 +13,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es100_rep1
-bigDataUrl es100_rep1.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es100_rep1.PC1.bw
 shortLabel es100_rep1
 longLabel
 type bigWig
@@ -27,7 +27,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es10
-bigDataUrl es10.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es10.PC1.bw
 shortLabel es10
 longLabel
 type bigWig
@@ -41,7 +41,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es10_rep1
-bigDataUrl es10_rep1.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es10_rep1.PC1.bw
 shortLabel es10_rep1
 longLabel
 type bigWig
@@ -55,7 +55,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es10_rep2
-bigDataUrl es10_rep2.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es10_rep2.PC1.bw
 shortLabel es10_rep2
 longLabel
 type bigWig
@@ -69,7 +69,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es200
-bigDataUrl es200.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es200.PC1.bw
 shortLabel es200
 longLabel
 type bigWig
@@ -83,7 +83,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es200_rep1
-bigDataUrl es200_rep1.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es200_rep1.PC1.bw
 shortLabel es200_rep1
 longLabel
 type bigWig
@@ -97,7 +97,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es500
-bigDataUrl es500.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es500.PC1.bw
 shortLabel es500
 longLabel
 type bigWig
@@ -111,7 +111,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es500_rep1
-bigDataUrl es500_rep1.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es500_rep1.PC1.bw
 shortLabel es500_rep1
 longLabel
 type bigWig
@@ -125,7 +125,7 @@ viewLimitsMax -100:100
 visibility full
 
 track es500_rep2
-bigDataUrl es500_rep2.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/es500_rep2.PC1.bw
 shortLabel es500_rep2
 longLabel
 type bigWig
@@ -139,7 +139,7 @@ viewLimitsMax -100:100
 visibility full
 
 track xiewei
-bigDataUrl xiewei.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/xiewei.PC1.bw
 shortLabel xiewei
 longLabel
 type bigWig
@@ -153,7 +153,7 @@ viewLimitsMax -100:100
 visibility full
 
 track xw_rep1
-bigDataUrl xw_rep1.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/xw_rep1.PC1.bw
 shortLabel xw_rep1
 longLabel
 type bigWig
@@ -167,7 +167,7 @@ viewLimitsMax -100:100
 visibility full
 
 track xw_rep2
-bigDataUrl xw_rep2.PC1.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/xw_rep2.PC1.bw
 shortLabel xw_rep2
 longLabel
 type bigWig

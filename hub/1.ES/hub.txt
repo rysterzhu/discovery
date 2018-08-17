@@ -1,7 +1,7 @@
 hub ES
 shortLabel ES compartment
 longLabel all ES compartment
-genomesFile genome.txt
+genomesFile https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/1.ES/genome.txt
 email zhuqianshu@tongji.edu.cn
 
 #http://genome-asia.ucsc.edu/cgi-bin/hgTracks?udcTimeout=1&db=mm10&hubUrl=http://wukong.tongji.edu.cn/UCSC_home/qszhu/hub/1.ES/hub.txt

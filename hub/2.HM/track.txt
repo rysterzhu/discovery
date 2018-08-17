@@ -3,12 +3,12 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 2cell
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
 color 255,0,0
 altColor 0,0,255
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits -2:2
 viewLimitsMax -100:100
 visibility full
 
@@ -17,12 +17,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 2cell.K27me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 145,191,219
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 
@@ -31,12 +30,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 2cell.K4me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 252,141,89
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:4
 viewLimitsMax -100:100
 visibility full
 
@@ -45,12 +43,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 2cell.K9me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 145,207,96
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 
@@ -59,12 +56,12 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 4cell
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
 color 255,0,0
 altColor 0,0,255
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits -2:2
 viewLimitsMax -100:100
 visibility full
 
@@ -73,12 +70,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 4cell.K27me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 145,191,219
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 
@@ -87,12 +83,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 4cell.K4me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 252,141,89
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:4
 viewLimitsMax -100:100
 visibility full
 
@@ -101,12 +96,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 4cell.K9me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 145,207,96
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 
@@ -115,12 +109,12 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 8cell
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
 color 255,0,0
 altColor 0,0,255
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits -2:2
 viewLimitsMax -100:100
 visibility full
 
@@ -129,12 +123,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 8cell.K27me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 145,191,219
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 
@@ -143,12 +136,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 8cell.K4me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 252,141,89
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:4
 viewLimitsMax -100:100
 visibility full
 
@@ -157,12 +149,11 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel 8cell.K9me3
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
-color 255,0,0
-altColor 0,0,255
+color 145,207,96
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits 0:2
 viewLimitsMax -100:100
 visibility full
 
@@ -171,12 +162,12 @@ bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/
 shortLabel l2cell
 longLabel  
 type bigWig
-autoScale on
+autoScale off
 windowingFunction mean+whiskers
 color 255,0,0
 altColor 0,0,255
 maxHeightPixels 100:50:10
-viewLimits -5:5
+viewLimits -2:2
 viewLimitsMax -100:100
 visibility full
 

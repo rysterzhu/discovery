@@ -1,0 +1,52 @@
+track 8cell
+bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/2.HM/8cell.bw
+shortLabel 8cell
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 255,0,0
+altColor 0,0,255
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+
+track 8cell.K27me3
+bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/2.HM/8cell.K27me3.bw
+shortLabel 8cell.K27me3
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 145,191,219
+maxHeightPixels 100:50:10
+viewLimits 0:2
+viewLimitsMax -100:100
+visibility full
+
+track 8cell.K4me3
+bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/2.HM/8cell.K4me3.bw
+shortLabel 8cell.K4me3
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 252,141,89
+maxHeightPixels 100:50:10
+viewLimits 0:2
+viewLimitsMax -100:100
+visibility full
+
+track 8cell.K9me3
+bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/2.HM/8cell.K9me3.bw
+shortLabel 8cell.K9me3
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 145,207,96
+maxHeightPixels 100:50:10
+viewLimits 0:2
+viewLimitsMax -100:100
+visibility full

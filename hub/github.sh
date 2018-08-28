@@ -63,4 +63,4 @@ sed 's|CC|'$k'|' $wdir/temple.txt >> $wdir/track.txt;
 done
 
 
-http://genome-asia.ucsc.edu/cgi-bin/hgTracks?udcTimeout=1&db=mm10&hubUrl=https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/hub.txt
+http://genome-asia.ucsc.edu/cgi-bin/hgTracks?udcTimeout=1&db=mm10&hubUrl=https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/hub.txt

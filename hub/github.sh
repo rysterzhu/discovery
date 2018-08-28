@@ -27,15 +27,40 @@ sed 's|8cell|'$k'|' track.temple >> 2.HM/track.txt;done
 
 
 ############################################Insulation score
-wdir=~/git/discovery/hub
+wdir=~/git/discovery/hub/4.IS
 ddir=~/workspace/8.NT-HiC/f.IS_ALL/2.except_res40k_is1M_ids200k_nt01/4.bw
-mkdir -p $wdir/4.IS
-cp $ddir/*bw $wdir/4.IS
+mkdir -p $wdir
+cp $ddir/*bw $wdir
 
-cp $wdir/3.compartment/*txt $wdir/4.IS
+cp $wdir/../3.compartment/*txt $wdir
 
 #creat track.temple
-rm $wdir/4.IS/track.txt
+rm $wdir/track.txt
 for k in ${keys[@]}; do 
-sed 's|CC|'$k'|' $wdir/4.IS/track.temple >> $wdir/4.IS/track.txt;
+sed 's|CC|'$k'|' $wdir/track.temple >> $wdir/track.txt;
 done
+
+http://genome-asia.ucsc.edu/cgi-bin/hgTracks?udcTimeout=1&db=mm10&hubUrl=https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/hub.txt
+
+############################################Directional index
+wdir=~/git/discovery/hub/5.DI
+ddir=~/workspace/8.NT-HiC/g.DI_ALL/2.except_norm_100M_20180825/4.directional_index
+mkdir -p $wdir
+
+for i in ${keys[@]}; do 
+bedSort $ddir/$i.bedGraph $wdir/$i.bedGraph
+bedGraphToBigWig $wdir/$i.bedGraph ~/ann/mm10.chromSizes $wdir/$i.bw
+rm $wdir/$i.bedGraph
+done
+
+
+cp $wdir/../4.IS/*txt $wdir
+
+#creat temple
+rm $wdir/track.txt
+for k in ${keys[@]}; do 
+sed 's|CC|'$k'|' $wdir/temple.txt >> $wdir/track.txt;
+done
+
+
+http://genome-asia.ucsc.edu/cgi-bin/hgTracks?udcTimeout=1&db=mm10&hubUrl=https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/hub.txt

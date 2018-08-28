@@ -1,0 +1,7 @@
+hub NT DI
+shortLabel NT Directionality Index
+longLabel all NT Directionality Index
+genomesFile genome.txt
+email zhuqianshu@tongji.edu.cn
+
+

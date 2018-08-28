@@ -1,0 +1,210 @@
+track cc
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/cc.bw
+shortLabel cc
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track 05h
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/05h.bw
+shortLabel 05h
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track 1h
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/1h.bw
+shortLabel 1h
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track 2h
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/2h.bw
+shortLabel 2h
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track 3h
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/3h.bw
+shortLabel 3h
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track 6h
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/6h.bw
+shortLabel 6h
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track 12h
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/12h.bw
+shortLabel 12h
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track e2cell
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/e2cell.bw
+shortLabel e2cell
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track l2cell
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/l2cell.bw
+shortLabel l2cell
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track 4cell
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/4cell.bw
+shortLabel 4cell
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track 8cell
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/8cell.bw
+shortLabel 8cell
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track morula
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/morula.bw
+shortLabel morula
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track icm
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/icm.bw
+shortLabel icm
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+
+track te
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/5.DI/te.bw
+shortLabel te
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 0,0,0
+altColor 0,0,0
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+

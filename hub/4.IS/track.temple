@@ -1,5 +1,5 @@
 track CC
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/CC.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/CC.bw
 shortLabel CC
 longLabel  
 type bigWig

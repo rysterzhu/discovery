@@ -1,5 +1,5 @@
 track cc
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/cc.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/cc.bw
 shortLabel cc
 longLabel  
 type bigWig
@@ -14,7 +14,7 @@ visibility full
 graphTypeDefault points
 
 track 05h
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/05h.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/05h.bw
 shortLabel 05h
 longLabel  
 type bigWig
@@ -29,7 +29,7 @@ visibility full
 graphTypeDefault points
 
 track 1h
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/1h.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/1h.bw
 shortLabel 1h
 longLabel  
 type bigWig
@@ -44,7 +44,7 @@ visibility full
 graphTypeDefault points
 
 track 2h
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/2h.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/2h.bw
 shortLabel 2h
 longLabel  
 type bigWig
@@ -59,7 +59,7 @@ visibility full
 graphTypeDefault points
 
 track 3h
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/3h.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/3h.bw
 shortLabel 3h
 longLabel  
 type bigWig
@@ -74,7 +74,7 @@ visibility full
 graphTypeDefault points
 
 track 6h
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/6h.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/6h.bw
 shortLabel 6h
 longLabel  
 type bigWig
@@ -89,7 +89,7 @@ visibility full
 graphTypeDefault points
 
 track 12h
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/12h.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/12h.bw
 shortLabel 12h
 longLabel  
 type bigWig
@@ -104,7 +104,7 @@ visibility full
 graphTypeDefault points
 
 track e2cell
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/e2cell.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/e2cell.bw
 shortLabel e2cell
 longLabel  
 type bigWig
@@ -119,7 +119,7 @@ visibility full
 graphTypeDefault points
 
 track l2cell
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/l2cell.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/l2cell.bw
 shortLabel l2cell
 longLabel  
 type bigWig
@@ -134,7 +134,7 @@ visibility full
 graphTypeDefault points
 
 track 4cell
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/4cell.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/4cell.bw
 shortLabel 4cell
 longLabel  
 type bigWig
@@ -149,7 +149,7 @@ visibility full
 graphTypeDefault points
 
 track 8cell
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/8cell.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/8cell.bw
 shortLabel 8cell
 longLabel  
 type bigWig
@@ -164,7 +164,7 @@ visibility full
 graphTypeDefault points
 
 track morula
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/morula.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/morula.bw
 shortLabel morula
 longLabel  
 type bigWig
@@ -179,7 +179,7 @@ visibility full
 graphTypeDefault points
 
 track icm
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/icm.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/icm.bw
 shortLabel icm
 longLabel  
 type bigWig
@@ -194,7 +194,7 @@ visibility full
 graphTypeDefault points
 
 track te
-bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/te.bw
+bigDataUrl https://raw.githubusercontent.com/rysterzhu/discovery/master/hub/4.IS/te.bw
 shortLabel te
 longLabel  
 type bigWig

@@ -1,0 +1,7 @@
+hub NT
+shortLabel NT Insulation Score
+longLabel all NT Insulation Score
+genomesFile genome.txt
+email zhuqianshu@tongji.edu.cn
+
+#http://genome-asia.ucsc.edu/cgi-bin/hgTracks?udcTimeout=1&db=mm10&hubUrl=http://wukong.tongji.edu.cn/UCSC_home/qszhu/hub/4.IS/hub.txt

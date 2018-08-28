@@ -1,0 +1,15 @@
+track CC
+bigDataUrl https://media.githubusercontent.com/media/rysterzhu/discovery/master/hub/4.IS/CC.bw
+shortLabel CC
+longLabel  
+type bigWig
+autoScale off
+windowingFunction mean+whiskers
+color 255,255,255
+altColor 255,255,255
+maxHeightPixels 100:50:10
+viewLimits -2:2
+viewLimitsMax -100:100
+visibility full
+graphTypeDefault points
+

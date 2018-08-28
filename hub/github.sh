@@ -26,3 +26,16 @@ for k in zygote 2cell 4cell 8cell Morula ICM TE ; do
 sed 's|8cell|'$k'|' track.temple >> 2.HM/track.txt;done
 
 
+############################################Insulation score
+wdir=~/git/discovery/hub
+ddir=~/workspace/8.NT-HiC/f.IS_ALL/2.except_res40k_is1M_ids200k_nt01/4.bw
+mkdir -p $wdir/4.IS
+cp $ddir/*bw $wdir/4.IS
+
+cp $wdir/3.compartment/*txt $wdir/4.IS
+
+#creat track.temple
+rm $wdir/4.IS/track.txt
+for k in ${keys[@]}; do 
+sed 's|CC|'$k'|' $wdir/4.IS/track.temple >> $wdir/4.IS/track.txt;
+done
